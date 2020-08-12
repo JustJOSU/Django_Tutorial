@@ -8,7 +8,7 @@ from .models import Question, Choice
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
-    context_objcet_name = 'latest_question_list'
+    context_object_name  = 'latest_question_list'
 
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
@@ -16,6 +16,9 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
+    
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte = timezone.now())
 
 class ResultsView(generic.DetailView):
     model = Question
